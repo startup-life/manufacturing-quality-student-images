@@ -12,21 +12,31 @@
 
 | 경로 | 장수 | 용도 |
 |---|---:|---|
-| `assets/tumbler/reference/` | 64 | 학습 준비용: 기준 설명·학습 사진 선별 (`TUM-REF-001` ~ `TUM-REF-064`) |
-| `assets/tumbler/practice/` | 64 | 결과 확인용: 학습에 쓰지 않은 사진으로 판독 연습 (`TUM-PRC-001` ~ `TUM-PRC-064`) |
-| `MANIFEST.csv` | 1 | 파일별 경로, SHA-256, 바이트 수 |
+| `assets/dataset/images/` | 128 | 사진 128장 (`TUM-REF-###.jpg`, `TUM-PRC-###.jpg`) |
+| `metadata/generation_manifest.csv` | 1 | 사진별 트랙, 용도, 유형, 상태, 경로, SHA-256 |
+
+**학습 준비용·결과 확인용 사진은 파일 목록의 `split` 열로 구분합니다.**
+
+| `split` | 장수 | 용도 |
+|---|---:|---|
+| `train` | 64 | 학습 준비용: 기준 설명·학습 사진 선별 (`TUM-REF-001` ~ `TUM-REF-064`) |
+| `val` | 64 | 결과 확인용: 학습에 쓰지 않은 사진으로 판독 연습 (`TUM-PRC-001` ~ `TUM-PRC-064`) |
+
+사진은 모두 `assets/dataset/images/`에 있습니다. `train`·`val`이라는 별도 폴더는 없습니다.
+
+`subtype` 열은 사진의 유형을 나타냅니다. `status`가 `hold`인 행은 판단 보류(HOLD) 사진입니다.
 
 ## 실습에서 쓰는 방법
 
 **학습 준비용 사진에서 학습할 사진을 고릅니다. 결과 확인용 사진은 학습이 끝난 뒤 판독 결과를 살펴보는 데 씁니다.**
 
-실제 폴더명은 각각 `reference`와 `practice`입니다.
+파일 목록의 `split` 값은 각각 `train`과 `val`입니다.
 
-`reference`는 정상·불량 기준을 설명하는 사진 모음입니다.
+`train`은 정상·불량 기준을 설명하는 사진 모음입니다.
 
 교재에서는 정상 16장과 불량 40장을 골라 총 56장으로 학습합니다. 판단 보류(HOLD) 8장은 학습에서 제외합니다.
 
-`practice` 64장은 학습에 넣지 않고 결과 확인에 씁니다. 두 폴더 모두 정상·불량 사례가 섞여 있으므로 폴더 전체를 한 종류로 분류하지 않습니다.
+`val` 64장은 학습에 넣지 않고 결과 확인에 씁니다. 두 `split` 모두 정상·불량 사례가 섞여 있으므로 `split` 전체를 한 종류로 분류하지 않습니다.
 
 사진을 나누는 기준과 업로드 순서는 교재에서 확인합니다. 강사가 제공한 ‘텀블러 외관 불량 판정하기’의 사용 방법 1)~4)를 따릅니다.
 
@@ -58,10 +68,10 @@ git clone https://github.com/startup-life/manufacturing-quality-student-images.g
 
 ## 파일이 온전한지 확인
 
-`MANIFEST.csv`의 `sha256` 값과 받은 파일의 해시가 같으면 온전한 파일입니다. PowerShell 예시입니다.
+`metadata/generation_manifest.csv`의 `sha256` 값과 받은 파일의 해시가 같으면 온전한 파일입니다. PowerShell 예시입니다.
 
 ```powershell
-Get-FileHash manufacturing-quality-student-images\assets\tumbler\reference\TUM-REF-001.jpg -Algorithm SHA256
+Get-FileHash manufacturing-quality-student-images\assets\dataset\images\TUM-REF-001.jpg -Algorithm SHA256
 ```
 
 ## 이용 범위
