@@ -13,7 +13,7 @@
 | 경로 | 장수 | 용도 |
 |---|---:|---|
 | `assets/dataset/images/` | 128 | 사진 128장 (`TUM-REF-###.jpg`, `TUM-PRC-###.jpg`) |
-| `metadata/generation_manifest.csv` | 1 | 사진별 트랙, 용도, 유형, 상태, 경로, SHA-256 |
+| `metadata/generation_manifest.csv` | 1 | 사진별 트랙, 용도, 경로, SHA-256 |
 
 **학습 준비용·결과 확인용 사진은 파일 목록의 `split` 열로 구분합니다.**
 
@@ -24,7 +24,7 @@
 
 사진은 모두 `assets/dataset/images/`에 있습니다. `train`·`val`이라는 별도 폴더는 없습니다.
 
-`subtype` 열은 사진의 유형을 나타냅니다. `status`가 `hold`인 행은 판단 보류(HOLD) 사진입니다.
+`subtype` 열은 비어 있습니다. 사진별 유형과 판단 보류(HOLD) 여부는 학생용 저장소에 넣지 않습니다.
 
 ## 실습에서 쓰는 방법
 
